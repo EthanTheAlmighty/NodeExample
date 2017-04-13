@@ -20,7 +20,14 @@ public class NodeExample : EditorWindow {
         {
             for (int j = 0; j < myNodes[i].linkedNodes.Count; j++)
             {
-                DrawNodeCurve(myNodes[i].rect, myNodes[i].linkedNodes[j].rect);
+                Color color = Color.black;
+
+                if(myNodes[i].linkedNodes[j].GetType() == typeof(NodeB))
+                {
+                    color = Color.blue;
+                }
+
+                DrawNodeCurve(myNodes[i].rect, myNodes[i].linkedNodes[j].rect, color);
             }
         }
         if (GUILayout.Button("Node A"))
@@ -89,7 +96,7 @@ public class NodeExample : EditorWindow {
         nodeAttachID = -1;
     }
 
-    void DrawNodeCurve(Rect start, Rect end)
+    void DrawNodeCurve(Rect start, Rect end, Color c)
     {
         Vector3 startPos = new Vector3(start.x + start.width, start.y + (start.height / 2)+10, 0);
         Vector3 endPos = new Vector3(end.x, end.y + (end.height / 2)+ 10, 0);
@@ -98,7 +105,7 @@ public class NodeExample : EditorWindow {
         Color shadowCol = new Color(0, 0, 0, 0.06f);
 
        
-        Handles.DrawBezier(startPos, endPos, startTan, endTan, Color.black, null, 5);
+        Handles.DrawBezier(startPos, endPos, startTan, endTan, c, null, 5);
     }
 
 }
